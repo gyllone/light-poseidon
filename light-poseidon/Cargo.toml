@@ -10,15 +10,28 @@ license = "Apache-2.0"
 edition = "2021"
 
 [dependencies]
-ark-bn254 = "0.4.0"
-ark-ff = "0.4.0"
-num-bigint = "0.4.4"
-thiserror = "1.0"
+ark-bn254 = { version = "0.4.0", default-features = false, features = ["curve"] }
+ark-ff = { version = "0.4.0", default-features = false }
+core2 = { version = "0.4", default-features = false }
+num-bigint = { version = "0.4.4", default-features = false }
+thiserror_core2 = { version = "2.0.1", default-features = false }
 
 [dev-dependencies]
 criterion = "0.5"
 rand = "0.8"
 hex = "0.4.3"
+
+[features]
+default = ["alloc"]
+alloc = []
+std = [
+    "alloc",
+    "ark-bn254/std",
+    "ark-ff/std",
+    "core2/std",
+    "num-bigint/std",
+    "thiserror_core2/std",
+]
 
 [[bench]]
 name = "bn254_x5"

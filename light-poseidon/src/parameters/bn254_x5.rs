@@ -21,6 +21,10 @@ pub const PARTIAL_ROUNDS: [usize; 15] =
 pub const ALPHA: u64 = 5;
 
 use crate::{PoseidonError, PoseidonParameters};
+#[cfg(feature = "alloc")]
+use alloc::vec;
+#[cfg(feature = "std")]
+use std::convert::From;
 /// Returns Poseidon parameters for the BN254 curve with the following
 /// properties:
 ///
@@ -33,7 +37,7 @@ use crate::{PoseidonError, PoseidonParameters};
 use ark_ff::PrimeField;
 // to avoid warnings when width_limit_13 feature is used
 #[allow(unused_variables)]
-pub fn get_poseidon_parameters<F: PrimeField + std::convert::From<ark_ff::BigInteger256>>(
+pub fn get_poseidon_parameters<F: PrimeField + From<ark_ff::BigInteger256>>(
     t: u8,
 ) -> Result<PoseidonParameters<F>, PoseidonError> {
     if t == 0_u8 {
